@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Icon } from "semantic-ui-react";
+import { Icon, List } from "semantic-ui-react";
 import { HealthCheckEntry as HealthCheckEntryType } from "../types";
 
 const HealthCheckEntry: React.FC<{ entry: HealthCheckEntryType }> = ({ entry }) => {
@@ -19,11 +19,11 @@ const HealthCheckEntry: React.FC<{ entry: HealthCheckEntryType }> = ({ entry }) 
     };
 
     return (
-        <div>
-            <Header as="h4">{entry.date} <Icon name="user md" /></Header>
-            <p>{entry.description}</p>
+        <List.Content>
+            <List.Header as="h4">{entry.date} <Icon name="user md" /></List.Header>
+            {entry.description}<br/>
             <Icon name="heart" color={getIconColor(entry.healthCheckRating)} />
-        </div>
+        </List.Content>
     );
 };
 

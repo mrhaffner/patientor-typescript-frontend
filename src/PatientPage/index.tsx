@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from 'react-router-dom';
-import { Container, Header, Icon } from "semantic-ui-react";
+import { Container, Header, Icon, List } from "semantic-ui-react";
 
 import { Patient } from "../types";
 import { apiBaseUrl } from "../constants";
@@ -11,7 +11,6 @@ import EntryDetails from "./EntryDetails";
 const PatientPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [{ patient }, dispatch] = useStateValue();
-//   const [{ diagnoses }, ] = useStateValue();
   const [loading, setLoading] = useState(true);
   const currentPatient = Object.values(patient)[0];
 
@@ -49,11 +48,15 @@ const PatientPage: React.FC = () => {
         <Container>
             <Header as="h2">{currentPatient.name}<Icon name={icon()}/></Header>
             <p>ssn: {currentPatient.ssn}</p>
-            <p>occupation:{currentPatient.occupation}</p>
+            <p>occupation: {currentPatient.occupation}</p>
             <Header as="h3">entries</Header>
-            {currentPatient.entries.map(entry => (
-                <EntryDetails entry={entry} key={entry.id}/>
-            ))}
+            <List celled>
+                {currentPatient.entries.map(entry => (
+                    <List.Item key={entry.id}>
+                        <EntryDetails entry={entry}/>
+                    </List.Item>
+                ))}
+            </List>
         </Container>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Icon } from "semantic-ui-react";
+import { List, Icon } from "semantic-ui-react";
 import { OccupationalHealthcareEntry as OccupationalHealthcareEntryType } from "../types";
 import { useStateValue } from "../state";
 
@@ -7,17 +7,22 @@ const OccupationalHealthcareEntry: React.FC<{ entry: OccupationalHealthcareEntry
   const [{ diagnoses }, ] = useStateValue();
 
     return (
-        <div>
-            <Header as="h4">{entry.date} <Icon name="stethoscope"/> {entry.employerName}</Header>
-            <p>{entry.description}</p>
+        <List.Content>
+            <List.Header as="h4">{entry.date} <Icon name="stethoscope"/> {entry.employerName}</List.Header>
+            {entry.description}<br/>
             {entry.diagnosisCodes &&
-                <ul>
-                    {entry.diagnosisCodes.map(code => 
-                        <li key={code}>{code} {diagnoses.find(x => x.code === code)?.name ?? "Unknown"}</li>
+                <List as='ol'>
+                    <List.Header>Diagnoses:</List.Header>
+                    <List.Item as='ol'>
+                    {entry.diagnosisCodes.map(code =>
+                        <List.Item key={code} as='li' value=''>
+                            {code}: {diagnoses.find(x => x.code === code)?.name ?? "Unknown"}
+                        </List.Item>
                     )}
-                </ul>
+                    </List.Item>
+                </List>
             }
-        </div>
+        </List.Content>
     );
 };
 
