@@ -48,6 +48,17 @@ const PatientPage: React.FC = () => {
             <Header as="h2">{currentPatient.name}<Icon name={icon()}/></Header>
             <p>ssn: {currentPatient.ssn}</p>
             <p>occupation:{currentPatient.occupation}</p>
+            <Header as="h3">entries</Header>
+            {currentPatient.entries.map(entry => (
+                <div key={entry.description}>
+                    <p>{entry.date} {entry.description}</p>
+                    {entry.diagnosisCodes &&
+                    <ul>
+                        {entry.diagnosisCodes.map(code => <li key={code}>{code}</li>)}
+                    </ul>
+                    }
+                </div>
+            ))}
         </Container>
     </div>
   );
