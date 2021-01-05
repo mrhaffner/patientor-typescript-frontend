@@ -6,10 +6,12 @@ import { Container, Header, Icon } from "semantic-ui-react";
 import { Patient } from "../types";
 import { apiBaseUrl } from "../constants";
 import { useStateValue, setPatient } from "../state";
+import EntryDetails from "./EntryDetails";
 
 const PatientPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [{ patient }, dispatch] = useStateValue();
+//   const [{ diagnoses }, ] = useStateValue();
   const [loading, setLoading] = useState(true);
   const currentPatient = Object.values(patient)[0];
 
@@ -50,14 +52,7 @@ const PatientPage: React.FC = () => {
             <p>occupation:{currentPatient.occupation}</p>
             <Header as="h3">entries</Header>
             {currentPatient.entries.map(entry => (
-                <div key={entry.description}>
-                    <p>{entry.date} {entry.description}</p>
-                    {entry.diagnosisCodes &&
-                    <ul>
-                        {entry.diagnosisCodes.map(code => <li key={code}>{code}</li>)}
-                    </ul>
-                    }
-                </div>
+                <EntryDetails entry={entry} key={entry.id}/>
             ))}
         </Container>
     </div>
