@@ -13,7 +13,7 @@ import { useStateValue, addPatient } from "../state";
 
 const PatientListPage: React.FC = () => {
   const [{ patients }, dispatch] = useStateValue();
-
+  console.log(patients);
   const history = useHistory();
 
   const [modalOpen, setModalOpen] = React.useState<boolean>(false);
